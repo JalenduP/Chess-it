@@ -1,6 +1,8 @@
 import React from 'react';
 import AuthLayout from '../components/AuthLayout';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import TextType from '../components/TextType';
+
 
 const ResetPasswordPage = () => {
   const navigate = useNavigate(); // Initialize the hook
@@ -14,7 +16,13 @@ const ResetPasswordPage = () => {
   return (
     <AuthLayout>
       <h2 className="text-2xl font-semibold text-center text-white mb-6">
-        Reset Password
+        <TextType
+          text={["Reset your password","Keep it secure"]}
+          typingSpeed={75}
+          pauseDuration={1500}
+          showCursor={true}
+          cursorCharacter="|"
+        />
       </h2>
       <form className="space-y-6" onSubmit={handleSubmit}> {/* Add onSubmit */}
         <div>
