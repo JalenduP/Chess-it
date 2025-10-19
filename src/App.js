@@ -30,6 +30,7 @@ function App() {
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/tournaments" element={<TournamentPage />} />
         <Route path="/game/:gameId" element={<GamePage />} />
+        {/* <Route path="/friends" element={<Friends />} /> */}
         
         {/* Set the default page to your dashboard */}
         <Route path="/" element={<Navigate to="/login" replace />} />

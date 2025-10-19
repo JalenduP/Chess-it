@@ -1,6 +1,8 @@
 import React from 'react';
 import AuthLayout from '../components/AuthLayout';
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import TextType from '../components/TextType';
+
 
 const VerifyOtpPage = () => {
   const navigate = useNavigate(); // Initialize the hook
@@ -13,8 +15,14 @@ const VerifyOtpPage = () => {
 
   return (
     <AuthLayout>
-      <h2 className="text-2xl font-semibold text-center text-white mb-4">
-        Sign up
+      <h2 className="text-2xl font-semibold text-center text-white mb-6">
+        <TextType
+          text={["Check and","Enter"]}
+          typingSpeed={75}
+          pauseDuration={1500}
+          showCursor={true}
+          cursorCharacter="|"
+        />
       </h2>
       <p className="text-center text-gray-400 mb-6">
         An OTP has been sent to your email address for verification
