@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header"; // adjust path if needed
-
+import Header from "../components/Header"; // adjust if needed
+import FriendRow from "../components/FriendRow";
 
 const FriendsPage = () => {
   const [friends, setFriends] = useState([
@@ -11,22 +11,15 @@ const FriendsPage = () => {
     { id: 5, name: "Sourabh", rating: 1790, online: false },
   ]);
 
-  // Simulated loading state
-  
   const [loading, setLoading] = useState(false);
 
-  // Example API call placeholder (commented for now)
   useEffect(() => {
+    // fetch friends from API example
     // setLoading(true);
-    // fetch("/api/friends")
-    //   .then(res => res.json())
-    //   .then(data => setFriends(data))
-    //   .catch(err => console.error("Failed to fetch friends", err))
-    //   .finally(() => setLoading(false));
+    // fetch("/api/friends").then(...).finally(() => setLoading(false));
   }, []);
 
-  const handleAddFriend = async () => {
-    // Placeholder function for backend integration
+  const handleAddFriend = () => {
     const newFriend = {
       id: Date.now(),
       name: "New Friend",
@@ -36,19 +29,15 @@ const FriendsPage = () => {
     setFriends((prev) => [...prev, newFriend]);
   };
 
-  const handleRemove = async (id) => {
-    // Placeholder for backend DELETE request
+  const handleRemove = (id) => {
     setFriends((prev) => prev.filter((f) => f.id !== id));
   };
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      {/* Header fixed at top */}
       <Header />
 
-      {/* Page content */}
       <main className="flex-grow max-w-7xl mx-auto px-6 py-10 mt-4">
-        {/* Title and Add Friend Button */}
         <div className="flex items-start justify-between mb-6">
           <h1 className="text-4xl font-extrabold">Friends</h1>
 
@@ -69,9 +58,7 @@ const FriendsPage = () => {
           </button>
         </div>
 
-        {/* Table Container */}
         <div className="rounded-2xl overflow-hidden border border-gray-700">
-          {/* Table Header */}
           <div className="bg-[#2a3440] px-6 py-4">
             <div className="grid grid-cols-12 gap-4 text-sm text-gray-300 uppercase">
               <div className="col-span-5">Name</div>
@@ -81,50 +68,15 @@ const FriendsPage = () => {
             </div>
           </div>
 
-          {/* Loading / Empty / Table Rows */}
           {loading ? (
             <div className="p-6 text-gray-400">Loading friends...</div>
           ) : friends.length === 0 ? (
             <div className="p-6 text-gray-400">No friends yet. Add someone!</div>
           ) : (
+            /* parent wrapper keeps divide and allows FriendRow's last:rounded-b-2xl to work */
             <div className="divide-y divide-gray-800">
               {friends.map((f) => (
-                <div
-                  key={f.id}
-                  className="grid grid-cols-12 gap-4 items-center px-6 py-6 bg-[#0f1720] last:rounded-b-2xl"
-                >
-                  <div className="col-span-5">
-                    <span className="text-lg">{f.name}</span>
-                  </div>
-
-                  <div className="col-span-2 text-center">
-                    <span className="text-yellow-400 font-extrabold text-lg">{f.rating}</span>
-                  </div>
-
-                  <div className="col-span-3 text-center">
-                    <span
-                      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${
-                        f.online ? "bg-green-800 text-green-200" : "bg-gray-700 text-gray-300"
-                      }`}
-                    >
-                      <span
-                        className={`h-2 w-2 rounded-full ${
-                          f.online ? "bg-green-400" : "bg-gray-500"
-                        }`}
-                      />
-                      {f.online ? "online" : "offline"}
-                    </span>
-                  </div>
-
-                  <div className="col-span-2 text-right">
-                    <button
-                      onClick={() => handleRemove(f.id)}
-                      className="bg-yellow-400 text-black px-4 py-2 rounded-lg font-medium hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
+                <FriendRow key={f.id} friend={f} onRemove={handleRemove} />
               ))}
             </div>
           )}

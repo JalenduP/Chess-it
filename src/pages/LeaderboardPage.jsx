@@ -1,7 +1,8 @@
 import React from 'react';
-import { Header } from '../components/Header'; // Import the header
+import { Header } from '../components/Header';
+import LeaderBoardRow from '../components/LeaderBoardRow';
 
-// Mock data - you will fetch this from your API
+// Mock data - replace with API data later
 const leaderboardData = [
   { rank: 1, name: 'Saksham', rating: 2105, wins: 150, losses: 45 },
   { rank: 2, name: 'Touqeer', rating: 2088, wins: 142, losses: 50 },
@@ -12,18 +13,19 @@ const leaderboardData = [
 ];
 
 const LeaderboardPage = () => {
-  const myName = "Jalendu"; // You would get this from your AuthContext later
+  const myName = 'Jalendu'; // You’ll get this from AuthContext later
 
   return (
     <div className="min-h-screen bg-black">
-      <Header /> {/* Use the header here */}
+      <Header />
+
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        
         {/* Title and Filters */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-white mb-4 md:mb-0">
             Leaderboard
           </h1>
+
           <div className="flex space-x-4">
             <select className="bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400">
               <option>Filter by Department</option>
@@ -50,18 +52,10 @@ const LeaderboardPage = () => {
                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Losses</th>
               </tr>
             </thead>
+
             <tbody className="bg-gray-900 divide-y divide-gray-800">
               {leaderboardData.map((player) => (
-                <tr 
-                  key={player.rank} 
-                  className={player.name === myName ? 'bg-yellow-900 bg-opacity-30' : 'hover:bg-gray-800'}
-                >
-                  <td className="px-6 py-4 whitespace-nowrap text-lg font-medium text-white">{player.rank}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-lg text-white">{player.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-lg font-bold text-yellow-400">{player.rating}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-lg text-green-400">{player.wins}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-lg text-red-400">{player.losses}</td>
-                </tr>
+                <LeaderBoardRow key={player.rank} player={player} myName={myName} />
               ))}
             </tbody>
           </table>
