@@ -141,8 +141,8 @@ export default function DrawLayoverPage({ incomingDraw, onRespond, onClose }) {
             disabled={processing || expired}
             className={`flex-1 py-3 rounded-lg font-medium ${
               processing
-                ? 'bg-green-700 text-black opacity-80'
-                : 'bg-green-600 text-white hover:bg-green-500'
+                ? 'bg-yellow-400 text-black opacity-80'
+                : 'bg-yellow-500 text-white hover:bg-yellow-600'
             }`}
           >
             {processing ? 'Processing...' : 'Accept'}
