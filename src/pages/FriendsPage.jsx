@@ -9,6 +9,16 @@ const FriendsPage = () => {
     { id: 3, name: "Kostubh", rating: 1950, online: false },
     { id: 4, name: "Tanish", rating: 1812, online: true },
     { id: 5, name: "Sourabh", rating: 1790, online: false },
+    { id: 1, name: "Saksham", rating: 2105, online: true },
+    { id: 2, name: "Touqeer", rating: 2088, online: true },
+    { id: 3, name: "Kostubh", rating: 1950, online: false },
+    { id: 4, name: "Tanish", rating: 1812, online: true },
+    { id: 5, name: "Sourabh", rating: 1790, online: false },
+    { id: 1, name: "Saksham", rating: 2105, online: true },
+    { id: 2, name: "Touqeer", rating: 2088, online: true },
+    { id: 3, name: "Kostubh", rating: 1950, online: false },
+    { id: 4, name: "Tanish", rating: 1812, online: true },
+    { id: 5, name: "Sourabh", rating: 1790, online: false },
   ]);
 
   const [loading, setLoading] = useState(false);
