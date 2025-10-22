@@ -122,7 +122,7 @@ export default function DrawLayoverPage({ incomingDraw, onRespond, onClose }) {
           <div>
             <div className="text-xs text-gray-400">Time left to accept</div>
             <div
-              className="text-2xl font-mono font-bold text-yellow-400"
+              className="text-2xl font-mono font-bold text-yellow-500"
               aria-live="polite"
             >
               {secondsLeft}s
@@ -141,8 +141,8 @@ export default function DrawLayoverPage({ incomingDraw, onRespond, onClose }) {
             disabled={processing || expired}
             className={`flex-1 py-3 rounded-lg font-medium ${
               processing
-                ? 'bg-yellow-400 text-black opacity-80'
-                : 'bg-yellow-500 text-white hover:bg-yellow-600'
+                ? 'bg-yellow-600 text-black opacity-100'
+                : 'bg-yellow-600 text-white hover:bg-yellow-700'
             }`}
           >
             {processing ? 'Processing...' : 'Accept'}
