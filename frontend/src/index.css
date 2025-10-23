@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: 'Aclonia';
+  /* Update the src to point to the .ttf file */
+  src: url('/public/fonts/Aclonica.ttf') format('truetype'); /* Change format to 'truetype' */
+  font-weight: normal;
+  font-style: normal;
+}
