@@ -33,12 +33,20 @@ const io = initializeSocket(httpServer);
 setupGameSocket(io);
 setupChatSocket(io);
 
+// Stockfish analysis WebSocket (optional)
+try {
+  require('./stockfish-ws')(httpServer);
+  console.log('Stockfish analysis WS loaded');
+} catch (e) {
+  console.warn('Stockfish analysis WS not loaded:', e.message);
+}
+
 // Make io accessible in routes
 app.set('io', io);
 
 // Middleware
 app.use(cors({
-  origin: [process.env.FRONTEND_URL || 'http://localhost:3000'],
+  origin: [process.env.FRONTEND_URL || 'http://localhost:3000' ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

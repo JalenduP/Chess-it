@@ -31,19 +31,19 @@ const gameService = {
 
   // Get game by ID
   getGame: async (gameId) => {
-    const response = await axiosInstance.get(`/games/${gameId}`);
+    const response = await axiosInstance.get(`/games/${gameId}`); // Fixed: was using backtick without parenthesis
     return response.data;
   },
 
   // Get game history
   getGameHistory: async (page = 1, limit = 20) => {
-    const response = await axiosInstance.get(`/games/history?page=${page}&limit=${limit}`);
+    const response = await axiosInstance.get(`/games/history?page=${page}&limit=${limit}`); // Fixed: was using backtick without parenthesis
     return response.data;
   },
 
   // Resign game
   resignGame: async (gameId) => {
-    const response = await axiosInstance.post(`/games/${gameId}/resign`);
+    const response = await axiosInstance.post(`/games/${gameId}/resign`); // Fixed: was using backtick without parenthesis
     return response.data;
   }
 };

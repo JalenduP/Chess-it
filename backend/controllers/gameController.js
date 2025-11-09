@@ -8,15 +8,21 @@ const { calculateEloChange } = require('../utils/eloRating');
 // @access  Private
 const createGame = async (req, res) => {
   try {
-    const { timeControl } = req.body; // { minutes, increment }
+    console.log('=== CREATE GAME REQUEST ===');
+    console.log('req.user:', req.user);
+    console.log('req.body:', req.body);
+    
+    const { timeControl } = req.body;
     
     if (!timeControl || !timeControl.minutes || timeControl.increment === undefined) {
+      console.log('Invalid time control');
       return res.status(400).json({
         success: false,
         message: 'Time control is required'
       });
     }
 
+    console.log('Looking for waiting game...');
     // Find an opponent (simple matchmaking - find waiting game or create new)
     const waitingGame = await Game.findOne({
       status: 'waiting',
@@ -25,7 +31,10 @@ const createGame = async (req, res) => {
       white: { $ne: req.user._id }
     });
 
+    console.log('Waiting game found:', waitingGame ? 'YES' : 'NO');
+
     if (waitingGame) {
+      console.log('Joining existing game...');
       // Join existing game
       waitingGame.black = req.user._id;
       waitingGame.status = 'active';
@@ -35,6 +44,8 @@ const createGame = async (req, res) => {
       waitingGame.lastMoveTime = Date.now();
       
       const whitePlayer = await User.findById(waitingGame.white);
+      console.log('White player found:', whitePlayer ? 'YES' : 'NO');
+      
       waitingGame.whiteRatingBefore = whitePlayer.rating;
       waitingGame.blackRatingBefore = req.user.rating;
 
@@ -49,6 +60,9 @@ const createGame = async (req, res) => {
         game: populatedGame
       });
     } else {
+      console.log('Creating new waiting game...');
+      console.log('User rating:', req.user.rating);
+      
       // Create new waiting game
       const game = await Game.create({
         white: req.user._id,
@@ -59,8 +73,12 @@ const createGame = async (req, res) => {
         blackTime: timeControl.minutes * 60 * 1000
       });
 
+      console.log('Game created:', game._id);
+
       const populatedGame = await Game.findById(game._id)
         .populate('white', 'username rating');
+
+      console.log('Populated game:', populatedGame);
 
       return res.status(201).json({
         success: true,
@@ -68,10 +86,14 @@ const createGame = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error(error);
+    console.error('=== CREATE GAME ERROR ===');
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    console.error('Error details:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: 'Server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };

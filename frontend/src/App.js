@@ -14,6 +14,7 @@ import LeaderboardPage from "./pages/LeaderboardPage";
 import TournamentPage from "./pages/TournamentPage";
 import GamePage from "./pages/GamePage";
 import DashboardPage from "./pages/DashboardPage";
+import AnalysisPage from "./pages/AnalysisPage";
 import FriendsPage from "./pages/FriendsPage";
 import SettingsPage from "./pages/SettingsPage";
 import LogoutPage from "./pages/LogoutPage";
@@ -37,6 +38,7 @@ function App() {
         <Route path="/game/:gameId" element={<ProtectedRoute><GamePage /></ProtectedRoute>} />
         <Route path="/friends" element={<ProtectedRoute><FriendsPage /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+        <Route path="/analysis" element={<ProtectedRoute><AnalysisPage /></ProtectedRoute>} />
         <Route path="/logout" element={<LogoutPage />} />
 
         {/* Redirect root to dashboard if authenticated, else login */}

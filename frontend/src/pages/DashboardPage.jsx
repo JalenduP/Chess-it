@@ -28,15 +28,22 @@ const DashboardPage = () => {
     setError("");
 
     try {
+      console.log("Creating game with:", { minutes, increment });
       const response = await gameService.createGame({ minutes, increment });
-      
+      console.log("Game created successfully:", response);
+
       if (response.success && response.game) {
-        // Navigate to game page with the game ID
         navigate(`/game/${response.game._id}`);
       }
     } catch (err) {
       console.error("Failed to create game:", err);
-      setError(err.response?.data?.message || "Failed to start game. Please try again.");
+      console.error("Error response data:", err.response?.data);
+      console.error("Error status:", err.response?.status);
+      console.error("Full error:", err);
+
+      setError(
+        err.response?.data?.message || "Failed to start game. Please try again."
+      );
       setTimeout(() => setError(""), 5000);
     } finally {
       setLoading(false);
@@ -62,70 +69,70 @@ const DashboardPage = () => {
 
         <div className="grid grid-cols-3 gap-4">
           {/* Bullet */}
-          <TimeButton 
-            time="2" 
-            increment="0" 
-            type="Bullet" 
+          <TimeButton
+            time="2"
+            increment="0"
+            type="Bullet"
             onClick={() => handleTimeControlClick(2, 0)}
             disabled={loading}
           />
-          <TimeButton 
-            time="2" 
-            increment="1" 
-            type="Bullet" 
+          <TimeButton
+            time="2"
+            increment="1"
+            type="Bullet"
             onClick={() => handleTimeControlClick(2, 1)}
             disabled={loading}
           />
-          <TimeButton 
-            time="3" 
-            increment="0" 
-            type="Bullet" 
+          <TimeButton
+            time="3"
+            increment="0"
+            type="Bullet"
             onClick={() => handleTimeControlClick(3, 0)}
             disabled={loading}
           />
 
           {/* Blitz */}
-          <TimeButton 
-            time="3" 
-            increment="2" 
-            type="Blitz" 
+          <TimeButton
+            time="3"
+            increment="2"
+            type="Blitz"
             onClick={() => handleTimeControlClick(3, 2)}
             disabled={loading}
           />
-          <TimeButton 
-            time="5" 
-            increment="0" 
-            type="Blitz" 
+          <TimeButton
+            time="5"
+            increment="0"
+            type="Blitz"
             onClick={() => handleTimeControlClick(5, 0)}
             disabled={loading}
           />
-          <TimeButton 
-            time="5" 
-            increment="3" 
-            type="Blitz" 
+          <TimeButton
+            time="5"
+            increment="3"
+            type="Blitz"
             onClick={() => handleTimeControlClick(5, 3)}
             disabled={loading}
           />
 
           {/* Rapid */}
-          <TimeButton 
-            time="10" 
-            increment="0" 
-            type="Rapid" 
+          <TimeButton
+            time="10"
+            increment="0"
+            type="Rapid"
             onClick={() => handleTimeControlClick(10, 0)}
             disabled={loading}
           />
-          <TimeButton 
-            time="10" 
-            increment="3" 
-            type="Rapid" 
+          <TimeButton
+            time="10"
+            increment="3"
+            type="Rapid"
             onClick={() => handleTimeControlClick(10, 3)}
             disabled={loading}
           />
-          <TimeButton 
-            time="15" 
-            increment="10" 
-            type="Rapid" 
+          <TimeButton
+            time="15"
+            increment="10"
+            type="Rapid"
             onClick={() => handleTimeControlClick(15, 10)}
             disabled={loading}
           />
@@ -133,10 +140,10 @@ const DashboardPage = () => {
 
         {/* Challenge a Friend */}
         <div className="mt-6">
-          <button 
+          <button
             className="w-full bg-gray-700 text-gray-300 py-4 rounded-lg hover:bg-gray-600 disabled:opacity-50"
             disabled={loading}
-            onClick={() => navigate('/friends')}
+            onClick={() => navigate("/friends")}
           >
             Challenge a friend
           </button>
